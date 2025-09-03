@@ -49,6 +49,23 @@ void RegisterAudioPluginsScenario::init()
     }
 }
 
+io::paths_t RegisterAudioPluginsScenario::newPluginPaths()
+{
+    io::paths_t newPluginPaths;
+
+    for (const IAudioPluginsScannerPtr& scanner : scannerRegister()->scanners()) {
+        io::paths_t paths = scanner->scanPlugins();
+
+        for (const io::path_t& path : paths) {
+            if (!knownPluginsRegister()->exists(path)) {
+                newPluginPaths.push_back(path);
+            }
+        }
+    }
+
+    return newPluginPaths;
+}
+
 Ret RegisterAudioPluginsScenario::registerNewPlugins()
 {
     TRACEFUNC;

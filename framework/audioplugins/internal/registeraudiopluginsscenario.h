@@ -50,6 +50,7 @@ public:
 
     void init();
 
+    io::paths_t newPluginPaths() override;
     Ret registerNewPlugins() override;
     Ret registerPlugin(const io::path_t& pluginPath) override;
     Ret registerFailedPlugin(const io::path_t& pluginPath, int failCode) override;
